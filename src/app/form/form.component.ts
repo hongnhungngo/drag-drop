@@ -57,7 +57,7 @@ export class FormComponent implements OnInit {
     if (this.addCard.valid) {
       this._listService
         .addNewCard(this.addCard.value, id)
-        .subscribe(data => this.lists.push(this.addCard.value));
+        .subscribe(()=> this.lists.push(this.addCard.value));
       this.addCard.reset();
     }
   }
@@ -81,18 +81,18 @@ export class FormComponent implements OnInit {
   }
 
   onEditList(id) {
-    this.selectedList[id] = !this.selectedList;
+    this.selectedList[id] = !this.selectedList[id];
   }
-  // dropItem(event: CdkDragDrop<string[]>) {
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(event.previousContainer.data,
-  //                       event.container.data,
-  //                       event.previousIndex,
-  //                       event.currentIndex);
-  //   }
-  // }
+  dropItem(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  }
   onSubmit(value) {
     console.log(value);
   }

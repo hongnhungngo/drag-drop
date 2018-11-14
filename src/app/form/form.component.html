@@ -15,7 +15,14 @@
     <p *ngIf="selectedList[list.id]">
       <input type="text" (change)="onEditList(list.id)" />
     </p>
-    <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div
+      id="{{list.id}}"
+      #{{list.id}}="cdkDropList"
+      [cdkDropListConnectedTo]="[]"
+      cdkDropList
+      (cdkDropListDropped)="dropItem($event)"
+      [cdkDropListData]="list.cards"
+    >
       <div *ngFor="let card of list.cards" class="hn-card" cdkDrag>
         {{ card.name }}
       </div>
