@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { IList } from "src/app/model/list";
 import { ListService } from "src/app/service/list.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
   lists: IList[];
   addList: FormGroup;
   addCard: FormGroup;
-
+  @ViewChild("editTitle") editTitle: ElementRef;
   constructor(private _listService: ListService, private fb: FormBuilder) {
     this.getList();
     this.addList = this.fb.group({
@@ -46,55 +46,58 @@ export class FormComponent implements OnInit {
 
   addNewList() {
     if (this.addList.valid) {
+      // this.lists.push(this.addList.value);
       this._listService
         .addNewList(this.addList.value)
-        .subscribe(data => this.lists.push(this.addList.value));
+        .subscribe(() => this.getList());
       this.addList.reset();
     }
   }
-  addNewCard(id) {
-    console.log(id);
+  addNewCard(list) {
+    console.log();
     if (this.addCard.valid) {
-      this._listService
-        .addNewCard(this.addCard.value, id)
-        .subscribe(()=> this.lists.push(this.addCard.value));
+      this._listService.addNewCard(this.addCard.value, list).subscribe();
       this.addCard.reset();
     }
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
-    // if (event.previousContainer === event.container) {
-    //   moveItemInArray(
-    //     event.container.data,
-    //     event.previousIndex,
-    //     event.currentIndex
-    //   );
-    // } else {
-    //   transferArrayItem(
-    //     event.previousContainer.data,
-    //     event.container.data,
-    //     event.previousIndex,
-    //     event.currentIndex
-    //   );
-    // }
   }
 
   onEditList(id) {
+    // this.editTitle.nativeElement.focus();
     this.selectedList[id] = !this.selectedList[id];
+  }
+  onEditTitle(list) {
+    this.selectedList[list.id] = !this.selectedList[list.id];
+    this._listService.updateListTitle(list);
   }
   dropItem(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
   }
-  onSubmit(value) {
-    console.log(value);
+
+  deleteAlert(list) {
+    this.deleteList(list);
   }
+  deleteList(list) {
+    this._listService.deleteList(list).subscribe(() => this.getList());
+  }
+  // updateListTitle(list){
+  //   if()
+  // }
   ngOnInit() {}
 }

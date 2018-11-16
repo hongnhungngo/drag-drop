@@ -1,53 +1,66 @@
-<div
-  class="d-flex"
-  cdkDropList
-  cdkDropListOrientation="horizontal"
-  (cdkDropListDropped)="drop($event)"
->
-  <div class="hn-list" *ngFor="let list of lists" cdkDrag>
-    <button
-      *ngIf="!selectedList[list.id]"
-      (click)="onEditList(list.id)"
-      class="hn-btn"
-    >
-      {{ list.title }}
-    </button>
-    <p *ngIf="selectedList[list.id]">
-      <input type="text" (change)="onEditList(list.id)" />
-    </p>
+<div class="d-flex">
+  <div cdkDropListGroup>
     <div
-      id="{{list.id}}"
-      #{{list.id}}="cdkDropList"
-      [cdkDropListConnectedTo]="[]"
       cdkDropList
-      (cdkDropListDropped)="dropItem($event)"
-      [cdkDropListData]="list.cards"
+      class="d-flex"
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
     >
-      <div *ngFor="let card of list.cards" class="hn-card" cdkDrag>
-        {{ card.name }}
+      <div cdkDropList class="hn-list" *ngFor="let list of lists" cdkDrag>
+        <button
+          *ngIf="!selectedList[list.id]"
+          (click)="onEditList(list.id)"
+          class="hn-btn"
+        >
+          {{ list.title }}
+        </button>
+        <button (click)="deleteList(list)">X</button>
+        <p *ngIf="selectedList[list.id]">
+          <input type="text" (focusout)="onEditTitle(list)" id="editTitle" />
+        </p>
+        <!-- <div cdkDropListGroup> -->
+        <div
+          cdkDropList
+          (cdkDropListDropped)="dropItem($event)"
+          [cdkDropListData]="list.cards"
+          cdkDropListGroup
+        >
+          <div
+            cdkDropList
+            *ngFor="let card of list.cards"
+            class="hn-card"
+            cdkDrag
+          >
+            {{ card.name }}
+          </div>
+        </div>
+        <!-- </div> -->
+        <div *ngIf="!selectedCard[list.id]">
+          <button (click)="onClickCard(list.id)" class="hn-btn">
+            + Add a card
+          </button>
+        </div>
+        <form
+          class="hn-form"
+          *ngIf="selectedCard[list.id]"
+          [formGroup]="addCard"
+          (ngSubmit)="addNewCard(list)"
+          class="hn-form"
+        >
+          <input
+            type="text"
+            placeholder="Enter card name..."
+            formControlName="name"
+          />
+          <div>
+            <button class="add-list" type="submit">Add Card</button>
+            <button class="close-add-list" (click)="onClickCard(list.id)">
+              X
+            </button>
+          </div>
+        </form>
       </div>
     </div>
-    <div *ngIf="!selectedCard[list.id]">
-      <button (click)="onClickCard(list.id)" class="hn-btn">
-        + Add a card
-      </button>
-    </div>
-    <form
-      class="hn-form"
-      *ngIf="selectedCard[list.id]"
-      [formGroup]="addCard"
-      (ngSubmit)="addNewCard(list.id)"
-    >
-      <input
-        type="text"
-        placeholder="Enter card name..."
-        formControlName="name"
-      />
-      <div>
-        <button class="add-list" type="submit">Add Card</button>
-        <button class="close-add-list" (click)="onClickCard(list.id)">X</button>
-      </div>
-    </form>
   </div>
   <div *ngIf="isClickList">
     <button (click)="onClickList()" class="hn-list">+ Add another list</button>

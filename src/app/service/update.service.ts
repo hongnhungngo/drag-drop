@@ -3,12 +3,12 @@ import { BehaviorSubject } from "rxjs";
 import { IList } from "../model/list";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: "root"
 })
 export class UpdateService {
-    private _list = new BehaviorSubject<IList[]>([]);
+  private _list = new BehaviorSubject<IList[]>([]);
 
-    updateList(list: IList[]){
-        this._list.next(list);
-    }
+  updateList(list: IList[]) {
+    this._list.next(list);
+  }
 }

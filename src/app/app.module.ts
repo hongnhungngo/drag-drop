@@ -10,14 +10,17 @@ import { HttpClientModule } from "@angular/common/http";
 import { ListService } from "./service/list.service";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { UpdateService } from "./service/update.service";
+import { ClickStopPropagation } from "./stopPropagation";
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NavBarComponent,
-    FormComponent
+  declarations: [AppComponent, HomeComponent, NavBarComponent, FormComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    DragDropModule
   ],
-  imports: [BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule, DragDropModule],
   providers: [ListService, UpdateService],
   bootstrap: [AppComponent]
 })

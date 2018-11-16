@@ -1,46 +1,18 @@
 {
   "lists": [
     {
-      "id": "1",
-      "title": "doing",
+      "title": "jhgjhg",
+      "id": "ea37fd56-ef24-4fc9-8d6f-3f73de7e718a",
       "cards": [
         {
-          "id": "1",
-          "name": "abc"
+          "name": "fhgfhgfh",
+          "id": "e77f0206-c8e2-476d-b497-92c72a9e9113"
         },
         {
-          "id": "2",
-          "name": "afdsfds"
+          "name": "fhghg",
+          "id": "d056a667-2716-4994-82be-befe81804b78"
         }
       ]
-    },
-    {
-      "title": "fdsfdsf",
-      "id": "5e2ebecf-46fc-4055-8ff8-f52647f97419"
-    },
-    {
-      "title": "Phương xđ",
-      "id": "b6c395ae-27b0-4a0f-9c3c-42dccaa0cf6e"
-    },
-    {
-      "title": "egergerge",
-      "id": "a9fb10d9-a5e3-4ea2-ac00-45481c96e768"
-    },
-    {
-      "title": "fsfdsf",
-      "id": "a6e36d0a-ce34-40ff-b024-92841e764351"
-    },
-    {
-      "title": "gdgfd",
-      "id": "9d83c187-272a-4d9e-af35-9ea0cb7f1679"
-    },
-    {
-      "title": "sfdsf",
-      "id": "9fd975a6-8d52-40f9-8551-4a86d9393006"
-    },
-    {
-      "title": "sdgdgfd",
-      "id": "0c88317f-8011-424c-a857-ea496682f69a"
     }
   ]
 }

@@ -12,8 +12,20 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular
  * @title Drag&Drop enter predicate
  */
 export class HomeComponent {
-  all = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  even = [10];
+  todo = [
+    'Get to work',
+    'Pick up groceries',
+    'Go home',
+    'Fall asleep'
+  ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -25,14 +37,5 @@ export class HomeComponent {
                         event.currentIndex);
     }
   }
-
-  /** Predicate function that only allows even numbers to be dropped into a list. */
-  evenPredicate(item: CdkDrag<number>) {
-    return item.data % 2 === 0;
-  }
-
-  /** Predicate function that doesn't allow items to be dropped into a list. */
-  noReturnPredicate() {
-    return true;
-  }
 }
+

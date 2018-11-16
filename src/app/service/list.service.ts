@@ -10,7 +10,6 @@ const DATA_URL = "http://localhost:3000/lists";
 })
 export class ListService {
   constructor(private http: HttpClient) {}
-
   getLists(): Observable<IList[]> {
     return this.http.get<IList[]>(DATA_URL);
   }
@@ -25,17 +24,24 @@ export class ListService {
     }
     return this.http.post(DATA_URL, list);
   }
-  // addNewCard(list: IList, listId) {
-  //   if (!list.card.cardId) {
-  //     list.card.cardId = uuid();
-  //   }
-  //   console.log(`${DATA_URL}/${listId}` + " " + list.card);
-  //   return this.http.post(`${DATA_URL}/${listId}`, list.card);
-  // }
-  addNewCard(card: ICard, listId) {
-    if (!card.cardId) {
-      card.cardId = uuid();
+  addNewCard(card: ICard, list) {
+    if (!card.id) {
+      card.id = uuid();
     }
-    return this.http.post(`${DATA_URL}/${listId}`, card);
+    if (!list.cards) {
+      list.cards = [];
+    }
+    list.cards.push(card);
+    return this.http.patch(`${DATA_URL}/${list.id}`, { cards: list.cards });
   }
+
+  updateListTitle(list) {
+    return this.http.put(`${DATA_URL}/${list.id}`, list);
+  }
+  deleteList(list: IList) {
+    return this.http.delete(`${DATA_URL}/${list.id}`);
+  }
+  // deleteCard(card:ICard, list){
+  //   return this.http.delete(`${DATA_URL}/${list.id}`, ), 
+  // }
 }
