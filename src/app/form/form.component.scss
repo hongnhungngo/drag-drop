@@ -1,20 +1,41 @@
+$bg-list-color: gray;
+$bg-card-color: rgb(195, 240, 243);
+@mixin main-setup(
+  $border-radius,
+  $padding-tb,
+  $padding-lr,
+  $margin-tb,
+  $margin-lr,
+  $bg
+) {
+  background: $bg;
+  margin: $margin-tb $margin-lr;
+  padding: $padding-tb $padding-lr;
+  border-radius: $border-radius;
+}
 .hn-list {
   min-width: 250px;
-  padding: 5px 10px;
-  background: gray;
-  border: 1px solid gray;
   border-radius: 5px;
-  margin: 5px 10px;
+  @include main-setup(5px, 5px, 10px, 5px, 10px, $bg-list-color);
+  border: 1px solid $bg-list-color;
   .hn-card {
+    @include main-setup(5px, 5px, 10px, 5px, auto, $bg-card-color);
     width: 98%;
-    background: rgb(195, 240, 243);
-    margin: 5px auto;
-    padding: 5px 10px;
-    border-radius: 5px;
   }
   .hn-btn {
-    background: gray;
+    background: $bg-list-color;
     border: none;
+  }
+  .hn-btn-card {
+    background: $bg-card-color;
+    border: none;
+  }
+  .btn-delete {
+    @extend .hn-btn;
+    color: white;
+  }
+  .btn-delete-card {
+    @extend .hn-btn-card;
   }
   .show {
     display: block;

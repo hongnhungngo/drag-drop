@@ -7,17 +7,28 @@
       (cdkDropListDropped)="drop($event)"
     >
       <div cdkDropList class="hn-list" *ngFor="let list of lists" cdkDrag>
-        <button
-          *ngIf="!selectedList[list.id]"
-          (click)="onEditList(list.id)"
-          class="hn-btn"
-        >
-          {{ list.title }}
-        </button>
-        <button (click)="deleteList(list)">X</button>
-        <p *ngIf="selectedList[list.id]">
-          <input type="text" (focusout)="onEditTitle(list)" id="editTitle" />
-        </p>
+        <div class="d-flex">
+          <button
+            *ngIf="!selectedList[list.id]"
+            (click)="onEditList(list.id)"
+            class="hn-btn"
+          >
+            {{ list.title }}
+          </button>
+          <p *ngIf="selectedList[list.id]">
+            <input
+              type="text"
+              (focusout)="onEditTitle(list, editTitle.value)"
+              id="editTitle"
+              #editTitle
+              placeholder="{{list.title}}"
+            />
+          </p>
+          <button (click)="deleteList(list)" class="btn-delete">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+
         <!-- <div cdkDropListGroup> -->
         <div
           cdkDropList
@@ -27,11 +38,32 @@
         >
           <div
             cdkDropList
-            *ngFor="let card of list.cards"
+            *ngFor="let card of list.cards; let i = index"
             class="hn-card"
             cdkDrag
           >
-            {{ card.name }}
+          
+            <button
+              *ngIf="!editCard[card.id]"
+              (click)="onEditCard(card.id)"
+              class="hn-btn-card"
+            >
+              {{ card.name }}
+            </button>
+            <p *ngIf="editCard[card.id]">
+              <input
+                type="text"
+                (focusout)="onEditCardName(card, list, editName.value)"
+                #editName
+                autofocus
+              />
+            </p>
+            <button
+              class="btn-delete-card"
+              (click)="deleteCard(i, list, list.cards)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
           </div>
         </div>
         <!-- </div> -->

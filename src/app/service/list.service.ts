@@ -35,7 +35,7 @@ export class ListService {
     return this.http.patch(`${DATA_URL}/${list.id}`, { cards: list.cards });
   }
 
-  updateListTitle(list) {
+  updateData(list:IList) {
     return this.http.put(`${DATA_URL}/${list.id}`, list);
   }
   deleteList(list: IList) {
